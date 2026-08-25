@@ -3,57 +3,87 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="theme-color" content="#070b14"/>
-<title>Monitoring Armada Online</title>
+<meta name="theme-color" content="#0b1220"/>
+<title>Monitoring Armada · Bandar Transport</title>
 <style>
-:root{--bg:#070b14;--card:#0e1624;--line:#1c2a40;--text:#eef3fb;--dim:#8b9bb3;--blue:#4c8dff;--ok:#3ddc97;--warn:#f5b942;--bad:#ff5d5d}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif}
-body{min-height:100vh;background:radial-gradient(900px 420px at 0% -10%,#152445 0,transparent 55%),var(--bg)}
-.top{position:sticky;top:0;z-index:5;backdrop-filter:blur(16px);background:#070b14cc;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:14px 20px;gap:10px}
-.brand{display:flex;gap:10px;align-items:center}.logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#4c8dff,#3ddc97);display:grid;place-items:center;font-weight:700;flex-shrink:0}
+:root{--bg:#f4f6fb;--card:#fff;--line:#d7deea;--text:#152033;--dim:#5b6b82;--soft:#eef2f8;--blue:#2f6bff;--ok:#0f9f6e;--warn:#c98400;--bad:#d64545;--on:#2b6cb0;--run:#0f9f6e;--park:#64748b;--stale:#b45309;--shadow:0 10px 30px rgba(21,32,51,.08);--hdr:rgba(244,246,251,.82)}
+html[data-theme="dark"]{--bg:#070b14;--card:#0e1624;--line:#1c2a40;--text:#eef3fb;--dim:#8b9bb3;--soft:#132033;--blue:#4c8dff;--ok:#3ddc97;--warn:#f5b942;--bad:#ff5d5d;--on:#93c5fd;--run:#86efac;--park:#cbd5e1;--stale:#fde68a;--shadow:0 12px 32px rgba(0,0,0,.28);--hdr:rgba(7,11,20,.78)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,sans-serif}
+body{min-height:100vh;background:radial-gradient(900px 420px at 0% -10%,color-mix(in srgb,var(--blue) 16%,transparent),transparent 55%),var(--bg);transition:background .28s ease,color .28s ease}
+.top{position:sticky;top:0;z-index:8;backdrop-filter:blur(16px);background:var(--hdr);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px}
+.brand{display:flex;gap:10px;align-items:center}.logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--ok));color:#fff;display:grid;place-items:center;font-weight:800}
 h1{margin:0;font-size:16px}.meta{font-size:11px;color:var(--dim)}
-.pill{font-size:11px;font-weight:600;padding:6px 10px;border-radius:999px;background:#102918;color:#9cf0c5;border:1px solid #1e5c3a;white-space:nowrap}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:600;cursor:pointer}
+.pill{font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;background:color-mix(in srgb,var(--ok) 16%,var(--card));color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 35%,var(--line))}
 main{max-width:1180px;margin:0 auto;padding:16px}
 .kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
-.kpi{background:#0d1523;border:1px solid var(--line);border-radius:16px;padding:12px}.kpi b{display:block;font-size:22px;margin-top:4px}.kpi span{font-size:11px;color:var(--dim)}
-.row{display:grid;grid-template-columns:1.15fr .85fr;gap:10px;margin-top:10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
-h2{margin:0 0 10px;font-size:12px;color:#b7c6dc;letter-spacing:.8px;text-transform:uppercase}
-.note{border-radius:12px;padding:10px;margin:0 0 8px;font-size:13px}.bad{background:#2a1216;border-left:3px solid var(--bad)}.warn{background:#2a2210;border-left:3px solid var(--warn)}.ok{background:#102318;border-left:3px solid var(--ok)}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow)}.kpi b{display:block;font-size:22px;margin-top:4px}.kpi span{font-size:11px;color:var(--dim)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 10px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--dim);border-radius:999px;padding:7px 11px;font-size:12px;cursor:pointer}
+.chip.on{background:color-mix(in srgb,var(--blue) 14%,var(--card));color:var(--text);border-color:color-mix(in srgb,var(--blue) 40%,var(--line))}
+.search{flex:1;min-width:180px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;padding:8px 12px;font-size:13px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+h2{margin:0 0 10px;font-size:12px;color:var(--dim);letter-spacing:.8px;text-transform:uppercase}
+.note{border-radius:12px;padding:10px;margin:0 0 8px;font-size:13px;line-height:1.45}
+.bad{background:color-mix(in srgb,var(--bad) 12%,var(--card));border-left:3px solid var(--bad)}
+.warn{background:color-mix(in srgb,var(--warn) 12%,var(--card));border-left:3px solid var(--warn)}
+.ok{background:color-mix(in srgb,var(--ok) 12%,var(--card));border-left:3px solid var(--ok)}
 .item{display:grid;grid-template-columns:92px 1fr 46px;gap:8px;align-items:center;margin:7px 0;font-size:12px}
-.track{height:8px;background:#1a2740;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--ok))}
-table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{padding:8px 6px;border-bottom:1px solid #162235;text-align:left}th{color:var(--dim);font-size:11px}
-.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px}.t-run{background:#133526;color:#86efac}.t-on{background:#13253d;color:#93c5fd}.t-park{background:#1b2433;color:#cbd5e1}.t-stale{background:#3a2a0c;color:#fde68a}.t-block{background:#3a1414;color:#fecaca}.t0{background:#3a1414;color:#fecaca}.tlow{background:#3a2a0c;color:#fde68a}.tok{background:#133526;color:#86efac}
-@media(max-width:920px){.kpis,.row{grid-template-columns:1fr 1fr}}
-</style></head><body>
-<header class="top"><div class="brand"><div class="logo">BT</div><div><h1>Monitoring Armada Online</h1><div class="meta">Web-based · Bandar Transport Indonesia · LIVE Cartrack</div></div></div><div class="pill">LIVE · 25 Agu 07:58 WIB</div></header>
+.track{height:8px;background:var(--soft);border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--ok))}
+.tablewrap{margin-top:10px;overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{color:var(--dim);font-size:11px;cursor:pointer;white-space:nowrap}
+.tag{font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.t-run{background:color-mix(in srgb,var(--run) 18%,transparent);color:var(--run)}
+.t-on{background:color-mix(in srgb,var(--on) 18%,transparent);color:var(--on)}
+.t-park{background:color-mix(in srgb,var(--park) 16%,transparent);color:var(--park)}
+.t-stale{background:color-mix(in srgb,var(--stale) 18%,transparent);color:var(--stale)}
+.t0{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.tlow{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.tok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.fuelbar{width:72px;height:7px;background:var(--soft);border-radius:99px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:6px}.fuelbar>i{display:block;height:100%}
+.muted{color:var(--dim);font-size:11px}footer{color:var(--dim);font-size:11px;margin:14px 2px 8px}
+@media(max-width:920px){.kpis,.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.kpis{grid-template-columns:1fr 1fr}}
+</style></head>
+<body>
+<header class="top"><div class="brand"><div class="logo">BT</div><div><h1>Monitoring Armada Online</h1><div class="meta">Bandar Transport Indonesia · snapshot Cartrack LIVE</div></div></div><div class="actions"><div class="pill" id="livepill">LIVE</div><button class="btn" id="themeBtn" type="button">Tema</button></div></header>
 <main>
-<section class="kpis">
-<div class="kpi"><span>Unit</span><b>20</b></div>
-<div class="kpi"><span>Jalan</span><b style="color:#86efac">1</b></div>
-<div class="kpi"><span>Mesin ON</span><b style="color:#93c5fd">2</b></div>
-<div class="kpi"><span>Siap</span><b>11</b></div>
-<div class="kpi"><span>Solar ≤3 L</span><b style="color:#fca5a5">4</b></div>
-<div class="kpi"><span>Stale</span><b style="color:#fde68a">6</b></div>
-<div class="kpi"><span>KM 7 hari</span><b>17.307</b></div>
-</section>
-<section class="row">
-<article class="card"><h2>Prioritas operasional</h2>
-<p class="note bad"><b>Solar CRITICAL</b> — B9593KDB Pasar Kemis 1L · B9205FYX Tambun Selatan 0L · B9629KQB Tambun Selatan 3L · B9615KQB Gunung Guruh 0L</p>
-<p class="note warn"><b>Solar LOW <40%</b> — B9768FYY Lembursitu 32L · B9209FYX Sindang Jaya 36L · B9580FYX Tambun Selatan 31L · B9217FYX Rawalumbu 28L · Z9892MN Tambun Selatan 28L · F8291HF Kemang 33L</p>
-<p class="note warn"><b>Stale</b> — B9153KPA Tambun Selatan · B9207FYX Tambun Selatan 66L · B9531FYY Tambun Selatan 43L · B9206FYX Cileungsi 100L · F8291HF Kemang 33L · F9021AC Kedungwaringin 48L</p>
-<p class="note ok"><b>Aktif</b> — R8342OC JALAN 30 km/j Pasirjambu · B9768FYY MESIN ON 0 km/j Lembursitu · B9044FYZ MESIN ON 0 km/j Tuban</p>
-</article>
-<article class="card"><h2>Utilisasi 7 hari</h2><div id="bars"></div></article>
-</section>
-<article class="card" style="margin-top:10px;overflow-x:auto"><h2>Status unit</h2><table id="tbl"></table></article>
-<p style="color:#8b9bb3;font-size:11px">Monitoring Armada Online · snapshot Cartrack LIVE 25 Agu 07:58 WIB · update penuh 07.00 & 19.00 WIB</p>
+<section class="kpis" id="kpis"></section>
+<div class="toolbar"><input class="search" id="q" placeholder="Cari nopol / lokasi..."/><button class="chip on" data-f="ALL">Semua</button><button class="chip" data-f="JALAN">Jalan</button><button class="chip" data-f="MESIN ON">Mesin ON</button><button class="chip" data-f="PARKIR">Parkir</button><button class="chip" data-f="STALE">Stale</button><button class="chip" data-f="FUEL">Solar rendah</button></div>
+<section class="grid"><article class="card" id="prio"></article><article class="card"><h2>Utilisasi 7 hari</h2><div id="bars"></div></article></section>
+<article class="card tablewrap"><h2>Status unit</h2><table><thead><tr><th data-s="nopol">Nopol</th><th data-s="st">Status</th><th data-s="spd">Km/j</th><th data-s="km7">KM 7h</th><th data-s="odo">Odo</th><th data-s="svc">Sisa service</th><th data-s="fuel">Solar</th><th data-s="ageh">Update</th><th data-s="loc">Wilayah</th></tr></thead><tbody id="tbody"></tbody></table></article>
+<footer id="foot"></footer>
 </main>
 <script>
-const U=[["B9153KPA","STALE",621,2479,null,"24 15:26","Tambun Selatan"],["B9768FYY","MESIN ON",1157,128081,32,"07:56","Lembursitu"],["B9044FYZ","MESIN ON",1285,32228,65,"07:57","Tuban"],["B9032FYZ","PARKIR",1299,153537,55,"02:48","Cibaliung"],["B9421FYY","PARKIR",1108,159324,53,"07:43","Karawaci"],["B9209FYX","PARKIR",1040,319218,36,"07:18","Sindang Jaya"],["B9593KDB","PARKIR",936,394434,1,"02:23","Pasar Kemis"],["B9207FYX","STALE",759,302422,66,"24 22:17","Tambun Selatan"],["B9205FYX","PARKIR",22,301535,0,"07:50","Tambun Selatan"],["B9629KQB","PARKIR",6,494841,3,"07:06","Tambun Selatan"],["R8342OC","JALAN",635,250545,67,"07:57","Pasirjambu"],["B9531FYY","STALE",972,164311,43,"24 18:19","Tambun Selatan"],["B9580FYX","PARKIR",1055,134653,31,"06:14","Tambun Selatan"],["B9217FYX","PARKIR",749,296428,28,"07:55","Rawalumbu"],["B9208FYX","PARKIR",854,277228,56,"00:36","Bandung Barat"],["B9206FYX","STALE",1298,12968,100,"24 22:54","Cileungsi"],["Z9892MN","PARKIR",881,193648,28,"02:43","Tambun Selatan"],["F8291HF","STALE",977,381790,33,"23 16:02","Kemang"],["F9021AC","STALE",705,83683,48,"22 09:24","Kedungwaringin"],["B9615KQB","PARKIR",948,224864,0,"07:27","Gunung Guruh"]];
-const cls={JALAN:"t-run","MESIN ON":"t-on",PARKIR:"t-park",STALE:"t-stale",BLOKIR:"t-block"};
-const fmt=n=>n==null?"—":n.toLocaleString("id-ID");
-const max=Math.max(...U.map(x=>x[2]));
-document.getElementById("bars").innerHTML=[...U].sort((a,b)=>b[2]-a[2]).slice(0,8).map(x=>`<div class="item"><div>${x[0]}</div><div class="track"><div class="fill" style="width:${x[2]/max*100}%"></div></div><div>${fmt(x[2])}</div></div>`).join("");
-document.getElementById("tbl").innerHTML=`<tr><th>Nopol</th><th>Status</th><th>KM 7h</th><th>Odo</th><th>Solar</th><th>Update</th><th>Wilayah</th></tr>`+U.map(x=>{const f=x[4]==null?"n/a":x[4]<=3?`<span class="tag t0">${x[4]} L</span>`:x[4]<40?`<span class="tag tlow">${x[4]} L</span>`:`<span class="tag tok">${x[4]} L</span>`;return `<tr><td><b>${x[0]}</b></td><td><span class="tag ${cls[x[1]]}">${x[1]}</span></td><td>${fmt(x[2])}</td><td>${fmt(x[3])}</td><td>${f}</td><td>${x[5]}</td><td>${x[6]}</td></tr>`}).join("");
+const UNITS=[{"nopol":"B9153KPA","st":"STALE","spd":0,"km7":621,"odo":2479,"fuel":null,"loc":"Tambun Selatan","addr":"Cempaka, Tambun Selatan","svc":7521,"ageh":16.62},{"nopol":"B9768FYY","st":"MESIN ON","spd":0,"km7":1157,"odo":128081,"fuel":32,"loc":"Lembursitu","addr":"Lembursitu, Sukabumi","svc":1919,"ageh":0.04},{"nopol":"B9044FYZ","st":"MESIN ON","spd":0,"km7":1285,"odo":32228,"fuel":65,"loc":"Tuban","addr":"Plumpang, Tuban","svc":7772,"ageh":0.03},{"nopol":"B9032FYZ","st":"PARKIR","spd":0,"km7":1299,"odo":153537,"fuel":55,"loc":"Cibaliung","addr":"Cikeusik-Cibaliung","svc":6463,"ageh":5.25},{"nopol":"B9421FYY","st":"PARKIR","spd":0,"km7":1108,"odo":159324,"fuel":53,"loc":"Karawaci","addr":"Benua Indah, Karawaci","svc":676,"ageh":0.33},{"nopol":"B9209FYX","st":"PARKIR","spd":0,"km7":1040,"odo":319218,"fuel":36,"loc":"Sindang Jaya","addr":"Balaraja, Sindang Jaya","svc":782,"ageh":0.75},{"nopol":"B9593KDB","st":"PARKIR","spd":0,"km7":936,"odo":394434,"fuel":1,"loc":"Pasar Kemis","addr":"Raya Pasar Kemis","svc":5566,"ageh":5.66},{"nopol":"B9207FYX","st":"STALE","spd":0,"km7":759,"odo":302422,"fuel":66,"loc":"Tambun Selatan","addr":"Cempaka, Tambun","svc":7578,"ageh":9.76},{"nopol":"B9205FYX","st":"PARKIR","spd":0,"km7":22,"odo":301535,"fuel":0,"loc":"Tambun Selatan","addr":"Cempaka, Tambun","svc":8465,"ageh":0.22},{"nopol":"B9629KQB","st":"PARKIR","spd":0,"km7":6,"odo":494841,"fuel":3,"loc":"Tambun Selatan","addr":"Cempaka, Tambun","svc":5159,"ageh":0.96},{"nopol":"R8342OC","st":"JALAN","spd":36,"km7":635,"odo":250547,"fuel":67,"loc":"Ciwidey","addr":"Raya Ciwidey","svc":9453,"ageh":0.03},{"nopol":"B9531FYY","st":"STALE","spd":0,"km7":972,"odo":164311,"fuel":43,"loc":"Tambun Selatan","addr":"Cempaka, Tambun","svc":5689,"ageh":13.74},{"nopol":"B9580FYX","st":"PARKIR","spd":0,"km7":1055,"odo":134653,"fuel":31,"loc":"Tambun Selatan","addr":"Cempaka, Tambun","svc":5347,"ageh":1.81},{"nopol":"B9217FYX","st":"JALAN","spd":30,"km7":749,"odo":296429,"fuel":28,"loc":"Rawalumbu","addr":"Mustika Sari, Rawalumbu","svc":3571,"ageh":0.03},{"nopol":"B9208FYX","st":"PARKIR","spd":0,"km7":854,"odo":277228,"fuel":56,"loc":"Bandung Barat","addr":"Cililin","svc":2772,"ageh":7.44},{"nopol":"B9206FYX","st":"STALE","spd":0,"km7":1298,"odo":12968,"fuel":100,"loc":"Cileungsi","addr":"Kampung Tegal, Cileungsi","svc":7032,"ageh":9.15},{"nopol":"Z9892MN","st":"PARKIR","spd":0,"km7":881,"odo":193648,"fuel":28,"loc":"Tambun Selatan","addr":"Cempaka, Tambun","svc":6352,"ageh":5.34},{"nopol":"F8291HF","st":"STALE","spd":0,"km7":977,"odo":381790,"fuel":33,"loc":"Kemang","addr":"Kemang, Bogor","svc":8210,"ageh":40.01},{"nopol":"F9021AC","st":"STALE","spd":0,"km7":705,"odo":83683,"fuel":48,"loc":"Kedungwaringin","addr":"Rengas Bandung","svc":6317,"ageh":70.64},{"nopol":"B9615KQB","st":"PARKIR","spd":0,"km7":948,"odo":224864,"fuel":0,"loc":"Gunung Guruh","addr":"Pelabuhan II, Sukabumi","svc":5136,"ageh":0.61}];
+const STAMP="25 Agu 2026 \u00b7 08:03 WIB";
+const cls={"JALAN":"t-run","MESIN ON":"t-on","PARKIR":"t-park","STALE":"t-stale"};
+const fmt=n=>n==null?"—":Number(n).toLocaleString("id-ID");
+const themeBtn=document.getElementById("themeBtn");
+const saved=localStorage.getItem("armada-theme");
+const preferDark=window.matchMedia("(prefers-color-scheme: dark)").matches;
+const applyTheme=t=>{document.documentElement.setAttribute("data-theme",t);document.querySelector('meta[name="theme-color"]').setAttribute("content",t==="dark"?"#070b14":"#f4f6fb");themeBtn.textContent=t==="dark"?"Mode siang":"Mode malam";localStorage.setItem("armada-theme",t)};
+applyTheme(saved||(preferDark?"dark":"light"));
+themeBtn.onclick=()=>applyTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+let filter="ALL",q="",sortKey="fuel",sortDir=1;
+const crit=u=>u.fuel!=null&&u.fuel<=3;const low=u=>u.fuel!=null&&u.fuel>3&&u.fuel<40;
+function rel(u){if(u.ageh==null)return"—";if(u.ageh<0.08)return"baru saja";if(u.ageh<1)return Math.round(u.ageh*60)+" mnt";if(u.ageh<24)return u.ageh.toFixed(1)+" jam";return (u.ageh/24).toFixed(1)+" hr"}
+function fuelTag(f){if(f==null)return"n/a";const c=f<=3?"t0":f<40?"tlow":"tok";const w=Math.max(0,Math.min(100,f));const col=f<=3?"var(--bad)":f<40?"var(--warn)":"var(--ok)";return `<span class="tag ${c}">${f}%</span><span class="fuelbar"><i style="width:${w}%;background:${col}"></i></span>`}
+function visible(){const s=q.trim().toLowerCase();return UNITS.filter(u=>{if(filter==="FUEL"&&!(crit(u)||low(u)))return false;if(filter!=="ALL"&&filter!=="FUEL"&&u.st!==filter)return false;if(!s)return true;return (u.nopol+" "+u.loc+" "+u.addr+" "+u.st).toLowerCase().includes(s)}).sort((a,b)=>{const va=a[sortKey],vb=b[sortKey];if(va==null&&vb==null)return 0;if(va==null)return 1;if(vb==null)return -1;if(typeof va==="string")return va.localeCompare(vb)*sortDir;return (va-vb)*sortDir})}
+function render(){const all=UNITS;const n=all.length,jalan=all.filter(u=>u.st==="JALAN").length,on=all.filter(u=>u.st==="MESIN ON").length,park=all.filter(u=>u.st==="PARKIR").length,stale=all.filter(u=>u.st==="STALE").length,z=all.filter(crit).length,km7=all.reduce((s,u)=>s+(u.km7||0),0);
+document.getElementById("kpis").innerHTML=`<div class="kpi"><span>Unit</span><b>${n}</b></div><div class="kpi"><span>Jalan</span><b style="color:var(--run)">${jalan}</b></div><div class="kpi"><span>Mesin ON</span><b style="color:var(--on)">${on}</b></div><div class="kpi"><span>Siap</span><b>${park}</b></div><div class="kpi"><span>Solar ≤3%</span><b style="color:var(--bad)">${z}</b></div><div class="kpi"><span>Stale</span><b style="color:var(--stale)">${stale}</b></div><div class="kpi"><span>KM 7 hari</span><b>${fmt(km7)}</b></div>`;
+const c=all.filter(crit),l=all.filter(low),st=all.filter(u=>u.st==="STALE"),act=all.filter(u=>u.st==="JALAN"||u.st==="MESIN ON"),near=[...all].filter(u=>u.svc!=null).sort((a,b)=>a.svc-b.svc).slice(0,5);
+document.getElementById("prio").innerHTML=`<h2>Prioritas operasional</h2><p class="note bad"><b>Solar CRITICAL</b> — ${c.map(u=>u.nopol+" "+u.loc+" "+u.fuel+"%").join(" · ")||"—"}</p><p class="note warn"><b>Solar LOW</b> — ${l.map(u=>u.nopol+" "+u.fuel+"%").join(" · ")||"—"}</p><p class="note warn"><b>Stale</b> — ${st.map(u=>u.nopol+" "+rel(u)).join(" · ")||"—"}</p><p class="note ok"><b>Aktif</b> — ${act.map(u=>u.nopol+" "+u.st+" "+u.spd+" km/j "+u.loc).join(" · ")||"Tidak ada unit jalan"}</p><p class="note ok"><b>Mendekati service 10.000 km</b> — ${near.map(u=>u.nopol+" sisa "+fmt(u.svc)+" km").join(" · ")}</p>`;
+const max=Math.max(...all.map(u=>u.km7||0),1);
+document.getElementById("bars").innerHTML=[...all].sort((a,b)=>b.km7-a.km7).slice(0,8).map(u=>`<div class="item"><div>${u.nopol}</div><div class="track"><div class="fill" style="width:${(u.km7/max)*100}%"></div></div><div>${fmt(u.km7)}</div></div>`).join("");
+document.getElementById("tbody").innerHTML=visible().map(u=>`<tr><td><b>${u.nopol}</b></td><td><span class="tag ${cls[u.st]}">${u.st}</span></td><td>${u.spd}</td><td>${fmt(u.km7)}</td><td>${fmt(u.odo)}</td><td>${u.svc==null?"—":fmt(u.svc)+" km"}</td><td>${fuelTag(u.fuel)}</td><td>${rel(u)}<div class="muted">${u.ageh>=8?"perlu cek GPS":""}</div></td><td>${u.loc}<div class="muted">${u.addr}</div></td></tr>`).join("");
+document.getElementById("livepill").textContent="LIVE · "+STAMP;
+document.getElementById("foot").textContent="Snapshot Cartrack "+STAMP+" · tema tersimpan di perangkat ini · update penuh 07.00 & 19.00 WIB";}
+document.getElementById("q").addEventListener("input",e=>{q=e.target.value;render()});
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{filter=b.dataset.f;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));render()});
+document.querySelectorAll("th[data-s]").forEach(th=>th.onclick=()=>{const k=th.dataset.s;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1}render()});
+render();
 </script></body></html>
