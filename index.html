@@ -4,7 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#f4f6fb"/>
-<title>Monitoring Armada · Bandar Transport</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>Monitoring Armada · Staff</title>
 <style>
 :root{--bg:#f4f6fb;--card:#fff;--line:#d7deea;--text:#152033;--dim:#5b6b82;--soft:#eef2f8;--blue:#2f6bff;--ok:#0f9f6e;--warn:#c98400;--bad:#d64545;--on:#2b6cb0;--run:#0f9f6e;--park:#64748b;--stale:#b45309;--shadow:0 10px 30px rgba(21,32,51,.08);--hdr:rgba(244,246,251,.82)}
 html[data-theme="dark"]{--bg:#070b14;--card:#0e1624;--line:#1c2a40;--text:#eef3fb;--dim:#8b9bb3;--soft:#132033;--blue:#4c8dff;--ok:#3ddc97;--warn:#f5b942;--bad:#ff5d5d;--on:#93c5fd;--run:#86efac;--park:#cbd5e1;--stale:#fde68a;--shadow:0 12px 32px rgba(0,0,0,.28);--hdr:rgba(7,11,20,.78)}
@@ -52,7 +53,7 @@ th{color:var(--dim);font-size:11px;cursor:pointer;white-space:nowrap}
 @media(max-width:560px){.kpis{grid-template-columns:1fr 1fr}.actions{width:100%}}
 </style></head>
 <body>
-<header class="top"><div class="brand"><div class="logo">BT</div><div><h1>Monitoring Armada Online</h1><div class="meta">Bandar Transport Indonesia · snapshot Cartrack (bukan live stream)</div></div></div><div class="actions"><div class="pill" id="livepill">SNAPSHOT</div><button class="btn" id="themeBtn" type="button">Tema</button></div></header>
+<header class="top"><div class="brand"><div class="logo">BT</div><div><h1>Monitoring Armada · Staff</h1><div class="meta">Bandar Transport Indonesia · monitor operasional staf · tanpa WhatsApp</div></div></div><div class="actions"><div class="pill" id="livepill">SNAPSHOT</div><button class="btn" id="themeBtn" type="button">Tema</button></div></header>
 <main>
 <section class="kpis" id="kpis"></section>
 <div class="toolbar"><input class="search" id="q" placeholder="Cari nopol / lokasi..."/><button class="chip on" data-f="ALL">Semua</button><button class="chip" data-f="JALAN">Jalan</button><button class="chip" data-f="MESIN ON">Mesin ON</button><button class="chip" data-f="PARKIR">Parkir</button><button class="chip" data-f="STALE">Stale</button><button class="chip" data-f="FUEL">Solar rendah</button><button class="chip" data-f="SIAP">Siap jalan</button></div>
@@ -95,7 +96,7 @@ const max=Math.max(...all.map(u=>u.km7||0),1);
 document.getElementById("bars").innerHTML=[...all].sort((a,b)=>b.km7-a.km7).slice(0,8).map(u=>`<div class="item"><div>${u.nopol}</div><div class="track"><div class="fill" style="width:${(u.km7/max)*100}%"></div></div><div>${fmt(u.km7)}</div></div>`).join("");
 document.getElementById("tbody").innerHTML=visible().map(u=>`<tr><td><b>${u.nopol}</b></td><td><span class="tag ${cls[u.st]}">${u.st}</span></td><td>${u.spd}</td><td>${fmt(u.km7)}</td><td>${fmt(u.odo)}</td><td>${u.svc==null?"—":fmt(u.svc)+" km"}</td><td>${fuelTag(u.fuel)}</td><td>${rel(u)}<div class="muted">${u.ageh>=8?"perlu cek GPS":""}</div></td><td>${u.loc}<div class="muted">${u.addr}</div></td></tr>`).join("");
 document.getElementById("livepill").textContent="SNAPSHOT · "+STAMP;
-document.getElementById("foot").textContent="Snapshot Cartrack "+STAMP+" · update penuh 07.00 & 19.00 WIB";}
+document.getElementById("foot").textContent="Monitor staf · snapshot "+STAMP+" · update 07.00 & 19.00 WIB";}
 document.getElementById("q").addEventListener("input",e=>{q=e.target.value;render()});
 document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{filter=b.dataset.f;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));render()});
 document.querySelectorAll("th[data-s]").forEach(th=>th.onclick=()=>{const k=th.dataset.s;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1}render()});
