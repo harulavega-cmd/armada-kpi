@@ -26,34 +26,34 @@ table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{padding:8px 6px
 .tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px}.t-run{background:#133526;color:#86efac}.t-on{background:#13253d;color:#93c5fd}.t-park{background:#1b2433;color:#cbd5e1}.t-stale{background:#3a2a0c;color:#fde68a}.t-block{background:#3a1414;color:#fecaca}.t0{background:#3a1414;color:#fecaca}.tlow{background:#3a2a0c;color:#fde68a}.tok{background:#133526;color:#86efac}
 @media(max-width:920px){.kpis,.row{grid-template-columns:1fr 1fr}}
 </style></head><body>
-<header class="top"><div class="brand"><div class="logo">BT</div><div><h1>Monitoring Armada Online</h1><div class="meta">Web-based · Bandar Transport Indonesia</div></div></div><div class="pill">ONLINE · 24 Agu 12:05 WIB</div></header>
+<header class="top"><div class="brand"><div class="logo">BT</div><div><h1>Monitoring Armada Online</h1><div class="meta">Web-based · Bandar Transport Indonesia · LIVE Cartrack</div></div></div><div class="pill">LIVE · 25 Agu 07:58 WIB</div></header>
 <main>
 <section class="kpis">
 <div class="kpi"><span>Unit</span><b>20</b></div>
-<div class="kpi"><span>Jalan</span><b style="color:#86efac">4</b></div>
-<div class="kpi"><span>Mesin ON</span><b style="color:#93c5fd">3</b></div>
-<div class="kpi"><span>Siap</span><b>12</b></div>
-<div class="kpi"><span>Solar 0 L</span><b style="color:#fca5a5">4</b></div>
-<div class="kpi"><span>Stale</span><b style="color:#fde68a">3</b></div>
-<div class="kpi"><span>KM 7 hari</span><b>17.306</b></div>
+<div class="kpi"><span>Jalan</span><b style="color:#86efac">1</b></div>
+<div class="kpi"><span>Mesin ON</span><b style="color:#93c5fd">2</b></div>
+<div class="kpi"><span>Siap</span><b>11</b></div>
+<div class="kpi"><span>Solar ≤3 L</span><b style="color:#fca5a5">4</b></div>
+<div class="kpi"><span>Stale</span><b style="color:#fde68a">6</b></div>
+<div class="kpi"><span>KM 7 hari</span><b>17.307</b></div>
 </section>
 <section class="row">
 <article class="card"><h2>Prioritas operasional</h2>
-<p class="note bad"><b>Blokir</b> — B9629KQB Cisoka · B9205FYX Tambun · F9021AC device 47 jam</p>
-<p class="note warn"><b>Solar 0 L</b> — B9615KQB Jatiluhur · B9593KDB Pasar Kemis · B9205FYX · B9629KQB</p>
-<p class="note warn"><b>Solar low</b> — B9768FYY 38L · B9531FYY 33L · B9580FYX 32L · Z9892MN 33L · F8291HF 33L</p>
-<p class="note ok"><b>Jalan</b> — B9421FYY 48 km/j · B9044FYZ Weleri 31 km/j · R8342OC Garut 24 km/j · B9032FYZ Puloampel</p>
+<p class="note bad"><b>Solar CRITICAL</b> — B9593KDB Pasar Kemis 1L · B9205FYX Tambun Selatan 0L · B9629KQB Tambun Selatan 3L · B9615KQB Gunung Guruh 0L</p>
+<p class="note warn"><b>Solar LOW <40%</b> — B9768FYY Lembursitu 32L · B9209FYX Sindang Jaya 36L · B9580FYX Tambun Selatan 31L · B9217FYX Rawalumbu 28L · Z9892MN Tambun Selatan 28L · F8291HF Kemang 33L</p>
+<p class="note warn"><b>Stale</b> — B9153KPA Tambun Selatan · B9207FYX Tambun Selatan 66L · B9531FYY Tambun Selatan 43L · B9206FYX Cileungsi 100L · F8291HF Kemang 33L · F9021AC Kedungwaringin 48L</p>
+<p class="note ok"><b>Aktif</b> — R8342OC JALAN 30 km/j Pasirjambu · B9768FYY MESIN ON 0 km/j Lembursitu · B9044FYZ MESIN ON 0 km/j Tuban</p>
 </article>
 <article class="card"><h2>Utilisasi 7 hari</h2><div id="bars"></div></article>
 </section>
 <article class="card" style="margin-top:10px;overflow-x:auto"><h2>Status unit</h2><table id="tbl"></table></article>
-<p style="color:#8b9bb3;font-size:11px">Monitoring Armada Online · web-based · snapshot Cartrack 12:05 WIB · auto-update per jam 07.00–18.00</p>
+<p style="color:#8b9bb3;font-size:11px">Monitoring Armada Online · snapshot Cartrack LIVE 25 Agu 07:58 WIB · update penuh 07.00 & 19.00 WIB</p>
 </main>
 <script>
-const U=[["B9044FYZ","JALAN",1285,31948,65,"08:41","Weleri"],["B9421FYY","JALAN",1108,159162,92,"08:40","Kedungwaringin"],["R8342OC","JALAN",635,250277,78,"08:41","Garut"],["B9032FYZ","JALAN",1299,153392,63,"08:40","Puloampel"],["B9768FYY","MESIN ON",1157,127869,38,"08:40","Periuk"],["B9629KQB","BLOKIR",6,494737,0,"08:40","Cisoka"],["B9217FYX","MESIN ON",749,296332,52,"08:40","Karawaci"],["B9531FYY","PARKIR",972,164160,33,"08:35","Benda"],["B9209FYX","PARKIR",1040,318940,43,"08:32","Cimahi"],["B9208FYX","PARKIR",854,276980,53,"08:32","Periuk"],["B9206FYX","PARKIR",1298,12742,100,"08:31","Pasar Kemis"],["B9593KDB","PARKIR",936,394432,0,"08:28","Pasar Kemis"],["B9205FYX","BLOKIR",22,301535,0,"08:26","Tambun"],["B9615KQB","PARKIR",948,224726,0,"08:36","Jatiluhur"],["B9580FYX","PARKIR",1055,134577,32,"08:14","Pasar Kemis"],["B9207FYX","PARKIR",759,302244,61,"08:02","Pasar Kemis"],["Z9892MN","STALE",881,193406,33,"04:10","Cikande"],["F8291HF","STALE",977,381790,33,"23 16:02","Kemang"],["B9153KPA","STALE",621,2479,null,"23 15:20","Tambun"],["F9021AC","BLOKIR",705,83683,48,"22 09:24","Kedungwaringin"]];
+const U=[["B9153KPA","STALE",621,2479,null,"24 15:26","Tambun Selatan"],["B9768FYY","MESIN ON",1157,128081,32,"07:56","Lembursitu"],["B9044FYZ","MESIN ON",1285,32228,65,"07:57","Tuban"],["B9032FYZ","PARKIR",1299,153537,55,"02:48","Cibaliung"],["B9421FYY","PARKIR",1108,159324,53,"07:43","Karawaci"],["B9209FYX","PARKIR",1040,319218,36,"07:18","Sindang Jaya"],["B9593KDB","PARKIR",936,394434,1,"02:23","Pasar Kemis"],["B9207FYX","STALE",759,302422,66,"24 22:17","Tambun Selatan"],["B9205FYX","PARKIR",22,301535,0,"07:50","Tambun Selatan"],["B9629KQB","PARKIR",6,494841,3,"07:06","Tambun Selatan"],["R8342OC","JALAN",635,250545,67,"07:57","Pasirjambu"],["B9531FYY","STALE",972,164311,43,"24 18:19","Tambun Selatan"],["B9580FYX","PARKIR",1055,134653,31,"06:14","Tambun Selatan"],["B9217FYX","PARKIR",749,296428,28,"07:55","Rawalumbu"],["B9208FYX","PARKIR",854,277228,56,"00:36","Bandung Barat"],["B9206FYX","STALE",1298,12968,100,"24 22:54","Cileungsi"],["Z9892MN","PARKIR",881,193648,28,"02:43","Tambun Selatan"],["F8291HF","STALE",977,381790,33,"23 16:02","Kemang"],["F9021AC","STALE",705,83683,48,"22 09:24","Kedungwaringin"],["B9615KQB","PARKIR",948,224864,0,"07:27","Gunung Guruh"]];
 const cls={JALAN:"t-run","MESIN ON":"t-on",PARKIR:"t-park",STALE:"t-stale",BLOKIR:"t-block"};
 const fmt=n=>n==null?"—":n.toLocaleString("id-ID");
 const max=Math.max(...U.map(x=>x[2]));
 document.getElementById("bars").innerHTML=[...U].sort((a,b)=>b[2]-a[2]).slice(0,8).map(x=>`<div class="item"><div>${x[0]}</div><div class="track"><div class="fill" style="width:${x[2]/max*100}%"></div></div><div>${fmt(x[2])}</div></div>`).join("");
-document.getElementById("tbl").innerHTML=`<tr><th>Nopol</th><th>Status</th><th>KM 7h</th><th>Odo</th><th>Solar</th><th>Update</th><th>Wilayah</th></tr>`+U.map(x=>{const f=x[4]==null?"n/a":x[4]===0?`<span class="tag t0">0 L</span>`:x[4]<40?`<span class="tag tlow">${x[4]} L</span>`:`<span class="tag tok">${x[4]} L</span>`;return `<tr><td><b>${x[0]}</b></td><td><span class="tag ${cls[x[1]]}">${x[1]}</span></td><td>${fmt(x[2])}</td><td>${fmt(x[3])}</td><td>${f}</td><td>${x[5]}</td><td>${x[6]}</td></tr>`}).join("");
+document.getElementById("tbl").innerHTML=`<tr><th>Nopol</th><th>Status</th><th>KM 7h</th><th>Odo</th><th>Solar</th><th>Update</th><th>Wilayah</th></tr>`+U.map(x=>{const f=x[4]==null?"n/a":x[4]<=3?`<span class="tag t0">${x[4]} L</span>`:x[4]<40?`<span class="tag tlow">${x[4]} L</span>`:`<span class="tag tok">${x[4]} L</span>`;return `<tr><td><b>${x[0]}</b></td><td><span class="tag ${cls[x[1]]}">${x[1]}</span></td><td>${fmt(x[2])}</td><td>${fmt(x[3])}</td><td>${f}</td><td>${x[5]}</td><td>${x[6]}</td></tr>`}).join("");
 </script></body></html>
