@@ -1,104 +1,56 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
+<html lang="id"><head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="theme-color" content="#f4f6fb"/>
+<meta name="theme-color" content="#070b14"/>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<title>Monitoring Armada Online</title>
+<title>ARMA · Haru Ai</title>
 <style>
-:root{--bg:#f4f6fb;--card:#fff;--line:#d7deea;--text:#152033;--dim:#5b6b82;--soft:#eef2f8;--blue:#2f6bff;--ok:#0f9f6e;--warn:#c98400;--bad:#d64545;--on:#2b6cb0;--run:#0f9f6e;--park:#64748b;--stale:#b45309;--shadow:0 10px 30px rgba(21,32,51,.08);--hdr:rgba(244,246,251,.82)}
-html[data-theme="dark"]{--bg:#070b14;--card:#0e1624;--line:#1c2a40;--text:#eef3fb;--dim:#8b9bb3;--soft:#132033;--blue:#4c8dff;--ok:#3ddc97;--warn:#f5b942;--bad:#ff5d5d;--on:#93c5fd;--run:#86efac;--park:#cbd5e1;--stale:#fde68a;--shadow:0 12px 32px rgba(0,0,0,.28);--hdr:rgba(7,11,20,.78)}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,sans-serif}
-body{min-height:100vh;background:radial-gradient(900px 420px at 0% -10%,color-mix(in srgb,var(--blue) 16%,transparent),transparent 55%),var(--bg);transition:background .28s ease,color .28s ease}
-.top{position:sticky;top:0;z-index:8;backdrop-filter:blur(16px);background:var(--hdr);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px}
-.brand{display:flex;gap:10px;align-items:center}.logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--ok));color:#fff;display:grid;place-items:center;font-weight:800}
-h1{margin:0;font-size:16px}.meta{font-size:11px;color:var(--dim)}
-.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none}
-.pill{font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;background:color-mix(in srgb,var(--ok) 16%,var(--card));color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 35%,var(--line))}
-main{max-width:1180px;margin:0 auto;padding:16px}
-.kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow)}.kpi b{display:block;font-size:22px;margin-top:4px}.kpi span{font-size:11px;color:var(--dim)}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 10px}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--dim);border-radius:999px;padding:7px 11px;font-size:12px;cursor:pointer}
-.chip.on{background:color-mix(in srgb,var(--blue) 14%,var(--card));color:var(--text);border-color:color-mix(in srgb,var(--blue) 40%,var(--line))}
-.search{flex:1;min-width:180px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;padding:8px 12px;font-size:13px}
-.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
-h2{margin:0 0 10px;font-size:12px;color:var(--dim);letter-spacing:.8px;text-transform:uppercase}
-.note{border-radius:12px;padding:10px;margin:0 0 8px;font-size:13px;line-height:1.45}
-.bad{background:color-mix(in srgb,var(--bad) 12%,var(--card));border-left:3px solid var(--bad)}
-.warn{background:color-mix(in srgb,var(--warn) 12%,var(--card));border-left:3px solid var(--warn)}
-.ok{background:color-mix(in srgb,var(--ok) 12%,var(--card));border-left:3px solid var(--ok)}
-.row{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px dashed color-mix(in srgb,var(--line) 70%,transparent);font-size:12px}
+:root{--bg:#070b14;--card:#0e1624;--line:#1c2a40;--text:#eef3fb;--dim:#8b9bb3;--bad:#ff5d5d;--warn:#f5b942;--ok:#3ddc97;--run:#86efac}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,sans-serif}
+.top{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+h1{margin:0;font-size:16px} .meta{font-size:11px;color:var(--dim)}
+.pill{font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;background:#132033;color:var(--ok);border:1px solid #1c2a40}
+main{max-width:720px;margin:0 auto;padding:14px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px}
+.kpi b{display:block;font-size:20px;margin-top:2px} .kpi span{font-size:10px;color:var(--dim)}
+.note{border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:13px}
+.bad{background:#2a1214;border-left:3px solid var(--bad)}
+.warn{background:#2a220e;border-left:3px solid var(--warn)}
+.run{background:#0e2418;border-left:3px solid var(--run)}
+.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed #1c2a40;font-size:13px}
 .row:last-child{border-bottom:0}
-.row b{font-size:12px}
-.item{display:grid;grid-template-columns:92px 1fr 46px;gap:8px;align-items:center;margin:7px 0;font-size:12px}
-.track{height:8px;background:var(--soft);border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--ok))}
-.tablewrap{margin-top:10px;overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
-th{color:var(--dim);font-size:11px;cursor:pointer;white-space:nowrap}
-.tag{font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
-.t-run{background:color-mix(in srgb,var(--run) 18%,transparent);color:var(--run)}
-.t-on{background:color-mix(in srgb,var(--on) 18%,transparent);color:var(--on)}
-.t-park{background:color-mix(in srgb,var(--park) 16%,transparent);color:var(--park)}
-.t-stale{background:color-mix(in srgb,var(--stale) 18%,transparent);color:var(--stale)}
-.t0{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
-.tlow{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
-.tok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
-.fuelbar{width:72px;height:7px;background:var(--soft);border-radius:99px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:6px}.fuelbar>i{display:block;height:100%}
-.muted{color:var(--dim);font-size:11px}footer{color:var(--dim);font-size:11px;margin:14px 2px 8px}
-@media(max-width:920px){.kpis,.grid{grid-template-columns:1fr 1fr}.top{align-items:flex-start;flex-wrap:wrap}}
-@media(max-width:560px){.kpis{grid-template-columns:1fr 1fr}.actions{width:100%}}
-</style></head>
-<body>
-<header class="top"><div class="brand"><div class="logo">BT</div><div><h1>Monitoring Armada Online</h1><div class="meta">Web-based · Bandar Transport Indonesia</div></div></div><div class="actions"><div class="pill" id="livepill">LIVE</div><button class="btn" id="themeBtn" type="button">Tema</button></div></header>
+.tag{font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px}
+.t0{background:#3a1515;color:var(--bad)} .tlow{background:#3a2e10;color:var(--warn)}
+.t-run{background:#14301f;color:var(--run)}
+.cmd{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:13px;line-height:1.45}
+footer{color:var(--dim);font-size:11px;margin:16px 4px}
+</style></head><body>
+<header class="top"><div><h1>ARMA · Haru Ai</h1><div class="meta">Hanya data penting · solar = % tangki</div></div><div class="pill" id="pill">LIVE</div></header>
 <main>
 <section class="kpis" id="kpis"></section>
-<div class="toolbar"><input class="search" id="q" placeholder="Cari nopol / lokasi..."/><button class="chip on" data-f="ALL">Semua</button><button class="chip" data-f="JALAN">Jalan</button><button class="chip" data-f="MESIN ON">Mesin ON</button><button class="chip" data-f="PARKIR">Parkir</button><button class="chip" data-f="STALE">Stale</button><button class="chip" data-f="FUEL">Solar rendah</button><button class="chip" data-f="SIAP">Siap jalan</button></div>
-<section class="grid"><article class="card" id="prio"></article><article class="card"><h2>Utilisasi 7 hari</h2><div id="bars"></div></article></section>
-<article class="card tablewrap"><h2>Status unit</h2><table><thead><tr><th data-s="nopol">Nopol</th><th data-s="st">Status</th><th data-s="spd">Km/j</th><th data-s="km7">KM 7h</th><th data-s="odo">Odo</th><th data-s="svc">Sisa service</th><th data-s="fuel">Solar (L)</th><th data-s="ageh">Update</th><th data-s="loc">Wilayah</th></tr></thead><tbody id="tbody"></tbody></table></article>
-<footer id="foot"></footer>
+<article id="blocks"></article>
+<article class="cmd" id="cmd"></article>
+<footer>Apps Haru Ai / ARMA · unit aman disembunyikan. ARMA 16:00 · Chief 07:00.</footer>
 </main>
 <script>
-const UNITS=[{"nopol":"B9153KPA","st":"PARKIR","spd":0,"km7":621,"odo":2556,"fuel":null,"loc":"Pasar Kemis","addr":"Jalan Raya Pasar Kemis, Pasar Kemis","svc":7444,"ageh":0.63},{"nopol":"B9768FYY","st":"PARKIR","spd":0,"km7":1157,"odo":128235,"fuel":29,"loc":"Pasar Kemis","addr":"Jalan Raya Pasar Kemis, Pasar Kemis","svc":1765,"ageh":0.37},{"nopol":"B9044FYZ","st":"PARKIR","spd":0,"km7":1285,"odo":32465,"fuel":62,"loc":"Lumajang","addr":"Tempeh, Lumajang","svc":7535,"ageh":7.15},{"nopol":"B9032FYZ","st":"PARKIR","spd":0,"km7":1299,"odo":153571,"fuel":90,"loc":"Pandeglang","addr":"Panimbang, Pandeglang","svc":6429,"ageh":3.1},{"nopol":"B9421FYY","st":"PARKIR","spd":0,"km7":1108,"odo":159523,"fuel":57,"loc":"Tangerang Kota","addr":"Karawaci, Tangerang Kota","svc":477,"ageh":0.22},{"nopol":"B9209FYX","st":"PARKIR","spd":0,"km7":1040,"odo":319224,"fuel":36,"loc":"Pasar Kemis","addr":"Jalan Putera Empat, Pasar Kemis","svc":776,"ageh":1.33},{"nopol":"B9593KDB","st":"PARKIR","spd":0,"km7":936,"odo":394486,"fuel":8,"loc":"Tangerang Kabupaten","addr":"Pasar Kemis, Tangerang Kabupaten","svc":5514,"ageh":0.09},{"nopol":"B9207FYX","st":"PARKIR","spd":0,"km7":759,"odo":302482,"fuel":66,"loc":"Karawaci","addr":"Jalan Benua Indah, Karawaci","svc":7518,"ageh":0.91},{"nopol":"B9205FYX","st":"PARKIR","spd":0,"km7":22,"odo":301590,"fuel":14,"loc":"Bogor Kabupaten","addr":"Gunung Putri, Bogor","svc":8410,"ageh":0.49},{"nopol":"B9629KQB","st":"STALE","spd":0,"km7":6,"odo":494947,"fuel":5,"loc":"Tambun Selatan","addr":"Cempaka, Tambun Selatan","svc":5053,"ageh":10.44},{"nopol":"R8342OC","st":"PARKIR","spd":0,"km7":635,"odo":250648,"fuel":75,"loc":"Bandung Kabupaten","addr":"Bojongsoang, Bandung","svc":9352,"ageh":0.07},{"nopol":"B9531FYY","st":"PARKIR","spd":0,"km7":972,"odo":164374,"fuel":31,"loc":"Karawaci","addr":"Jalan Benua Indah, Karawaci","svc":5626,"ageh":0.11},{"nopol":"B9580FYX","st":"PARKIR","spd":0,"km7":1055,"odo":134807,"fuel":67,"loc":"Periuk","addr":"Jalan Bayur, Periuk","svc":5193,"ageh":7.42},{"nopol":"B9217FYX","st":"STALE","spd":0,"km7":749,"odo":296600,"fuel":46,"loc":"Tambun Selatan","addr":"Cempaka, Tambun Selatan","svc":3400,"ageh":13.03},{"nopol":"B9208FYX","st":"PARKIR","spd":0,"km7":854,"odo":277377,"fuel":57,"loc":"Cibitung","addr":"Cibuntu Asem, Cibitung","svc":2623,"ageh":4.02},{"nopol":"B9206FYX","st":"PARKIR","spd":0,"km7":1298,"odo":13045,"fuel":86,"loc":"Tangerang Kota","addr":"Karawaci, Tangerang Kota","svc":6955,"ageh":0.14},{"nopol":"Z9892MN","st":"PARKIR","spd":0,"km7":881,"odo":193798,"fuel":39,"loc":"Karawaci","addr":"Jalan Benua Indah, Karawaci","svc":6202,"ageh":0.22},{"nopol":"F8291HF","st":"MESIN ON","spd":0,"km7":977,"odo":381790,"fuel":33,"loc":"Bogor Kabupaten","addr":"Kemang, Bogor","svc":8210,"ageh":0.0},{"nopol":"F9021AC","st":"STALE","spd":0,"km7":705,"odo":83683,"fuel":48,"loc":"Kedungwaringin","addr":"Rengas Bandung, Kedungwaringin","svc":6317,"ageh":93.88},{"nopol":"B9615KQB","st":"PARKIR","spd":0,"km7":948,"odo":225001,"fuel":0,"loc":"Purwakarta","addr":"Jatiluhur, Purwakarta","svc":4999,"ageh":0.18}];
-const STAMP="26 Agu 2026 \u00b7 07:18 WIB";
-const cls={"JALAN":"t-run","MESIN ON":"t-on","PARKIR":"t-park","STALE":"t-stale"};
-const fmt=n=>n==null?"—":Number(n).toLocaleString("id-ID");
-const themeBtn=document.getElementById("themeBtn");
-const saved=localStorage.getItem("armada-theme");
-const preferDark=window.matchMedia("(prefers-color-scheme: dark)").matches;
-const applyTheme=t=>{document.documentElement.setAttribute("data-theme",t);document.querySelector('meta[name="theme-color"]').setAttribute("content",t==="dark"?"#070b14":"#f4f6fb");themeBtn.textContent=t==="dark"?"Mode siang":"Mode malam";localStorage.setItem("armada-theme",t)};
-applyTheme(saved||(preferDark?"dark":"light"));
-themeBtn.onclick=()=>applyTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
-let filter="ALL",q="",sortKey="fuel",sortDir=1;
+const UNITS=[{"nopol":"B9153KPA","st":"JALAN","spd":18,"odo":3152.2,"fuel":null,"loc":"Cikupa","ageh":0},{"nopol":"B9768FYY","st":"PARKIR","spd":0,"odo":128657.3,"fuel":55,"loc":"Cempaka","ageh":1},{"nopol":"B9044FYZ","st":"PARKIR","spd":0,"odo":32707,"fuel":91,"loc":"Widang","ageh":1},{"nopol":"B9032FYZ","st":"JALAN","spd":11,"odo":153649.2,"fuel":76,"loc":"Anyar","ageh":0},{"nopol":"B9421FYY","st":"PARKIR","spd":0,"odo":159859.7,"fuel":92,"loc":"Tambun Selatan","ageh":2.4},{"nopol":"B9209FYX","st":"PARKIR","spd":0,"odo":319551.1,"fuel":44,"loc":"Pasar Kemis","ageh":1.3},{"nopol":"B9593KDB","st":"JALAN","spd":47,"odo":394667.6,"fuel":8,"loc":"Cikupa","ageh":0},{"nopol":"B9207FYX","st":"JALAN","spd":15,"odo":303053,"fuel":46,"loc":"Darangdan","ageh":0},{"nopol":"B9205FYX","st":"PARKIR","spd":0,"odo":301783.6,"fuel":0,"loc":"Tambun Selatan","ageh":3.3},{"nopol":"B9629KQB","st":"JALAN","spd":33,"odo":495450.8,"fuel":19,"loc":"Kelapa Dua","ageh":0},{"nopol":"R8342OC","st":"PARKIR","spd":0,"odo":250787.3,"fuel":76,"loc":"Cipanas","ageh":0.9},{"nopol":"B9531FYY","st":"MESIN ON","spd":0,"odo":164828.6,"fuel":13,"loc":"Cempaka","ageh":0},{"nopol":"B9580FYX","st":"PARKIR","spd":0,"odo":135170.2,"fuel":20,"loc":"Pasar Kemis","ageh":2.6},{"nopol":"B9217FYX","st":"PARKIR","spd":0,"odo":296608.6,"fuel":25,"loc":"Cempaka","ageh":6.6},{"nopol":"B9208FYX","st":"PARKIR","spd":0,"odo":277721,"fuel":57,"loc":"Tambun Selatan","ageh":4.4},{"nopol":"B9206FYX","st":"JALAN","spd":59,"odo":13642.6,"fuel":100,"loc":"Cikupa","ageh":0},{"nopol":"Z9892MN","st":"PARKIR","spd":0,"odo":194283.8,"fuel":13,"loc":"Pasar Kemis","ageh":5.3},{"nopol":"F8291HF","st":"STALE","spd":0,"odo":381790.4,"fuel":30,"loc":"Bogor Kabupaten","ageh":61.6},{"nopol":"F9021AC","st":"PARKIR","spd":0,"odo":83682.8,"fuel":21,"loc":"Kedungwaringin","ageh":6.3},{"nopol":"B9615KQB","st":"PARKIR","spd":0,"odo":225404.8,"fuel":0,"loc":"Gunung Guruh","ageh":0.2}];
+const STAMP="28 Agu 2026 \u00b7 23:28 WIB";
 const crit=u=>u.fuel!=null&&u.fuel<=3;
 const low=u=>u.fuel!=null&&u.fuel>3&&u.fuel<40;
 const stale=u=>u.st==="STALE"||(u.ageh!=null&&u.ageh>=8);
-const siap=u=>u.st==="PARKIR"&&!stale(u)&&u.fuel!=null&&u.fuel>=40;
-function rel(u){if(u.ageh==null)return"—";if(u.ageh<0.08)return"baru saja";if(u.ageh<1)return Math.round(u.ageh*60)+" mnt";if(u.ageh<24)return u.ageh.toFixed(1)+" jam";const d=u.ageh/24;return (d<10?d.toFixed(1):Math.round(d))+" hari"}
-function fuelTag(f){if(f==null)return"n/a";const c=f<=3?"t0":f<40?"tlow":"tok";const w=Math.max(0,Math.min(100,f));const col=f<=3?"var(--bad)":f<40?"var(--warn)":"var(--ok)";return `<span class="tag ${c}">${f} L</span><span class="fuelbar"><i style="width:${w}%;background:${col}"></i></span>`}
-function listRows(arr,line){return arr.length?arr.map(line).join(""):`<div class="muted">Tidak ada</div>`}
-function visible(){const s=q.trim().toLowerCase();return UNITS.filter(u=>{if(filter==="FUEL"&&!(crit(u)||low(u)))return false;if(filter==="SIAP"&&!siap(u))return false;if(filter==="STALE"&&!stale(u))return false;if(!["ALL","FUEL","SIAP","STALE"].includes(filter)&&u.st!==filter)return false;if(!s)return true;return (u.nopol+" "+u.loc+" "+u.addr+" "+u.st).toLowerCase().includes(s)}).sort((a,b)=>{const va=a[sortKey],vb=b[sortKey];if(va==null&&vb==null)return 0;if(va==null)return 1;if(vb==null)return -1;if(typeof va==="string")return va.localeCompare(vb)*sortDir;return (va-vb)*sortDir})}
-function render(){const all=UNITS;const n=all.length,jalan=all.filter(u=>u.st==="JALAN").length,on=all.filter(u=>u.st==="MESIN ON").length,ready=all.filter(siap).length,staleN=all.filter(stale).length,z=all.filter(crit).length,km7=all.reduce((s,u)=>s+(u.km7||0),0);
-document.getElementById("kpis").innerHTML=`<div class="kpi"><span>Unit</span><b>${n}</b></div><div class="kpi"><span>Jalan</span><b style="color:var(--run)">${jalan}</b></div><div class="kpi"><span>Mesin ON</span><b style="color:var(--on)">${on}</b></div><div class="kpi"><span>Siap jalan</span><b>${ready}</b></div><div class="kpi"><span>Solar ≤3 L</span><b style="color:var(--bad)">${z}</b></div><div class="kpi"><span>Stale</span><b style="color:var(--stale)">${staleN}</b></div><div class="kpi"><span>KM 7 hari</span><b>${fmt(km7)}</b></div>`;
-const c=all.filter(crit).sort((a,b)=>a.fuel-b.fuel),l=all.filter(low).sort((a,b)=>a.fuel-b.fuel),st=all.filter(stale).sort((a,b)=>b.ageh-a.ageh),act=all.filter(u=>u.st==="JALAN"||u.st==="MESIN ON"),near=[...all].filter(u=>u.svc!=null).sort((a,b)=>a.svc-b.svc).slice(0,3);
-document.getElementById("prio").innerHTML=`<h2>Prioritas operasional</h2>
-<div class="note bad"><b>Solar CRITICAL (0–3 L)</b>${listRows(c,u=>`<div class="row"><b>${u.nopol}</b><span>${u.fuel} L · ${u.loc}</span></div>`)}</div>
-<div class="note warn"><b>Solar LOW (<40 L)</b>${listRows(l,u=>`<div class="row"><b>${u.nopol}</b><span>${u.fuel} L · ${u.loc}</span></div>`)}</div>
-<div class="note warn"><b>Stale / GPS lama</b>${listRows(st,u=>`<div class="row"><b>${u.nopol}</b><span>${rel(u)} · ${u.loc}</span></div>`)}</div>
-<div class="note ok"><b>Aktif sekarang</b>${listRows(act,u=>`<div class="row"><b>${u.nopol}</b><span>${u.st} ${u.spd} km/j · ${u.loc}</span></div>`)}</div>
-<div class="note ok"><b>3 servis terdekat</b>${listRows(near,u=>`<div class="row"><b>${u.nopol}</b><span>sisa ${fmt(u.svc)} km</span></div>`)}</div>
-<p class="muted">Solar = liter (Cartrack LIVE). Siap jalan = parkir + solar ≥40 L + update < 8 jam.</p>
-`;
-const max=Math.max(...all.map(u=>u.km7||0),1);
-document.getElementById("bars").innerHTML=[...all].sort((a,b)=>b.km7-a.km7).slice(0,8).map(u=>`<div class="item"><div>${u.nopol}</div><div class="track"><div class="fill" style="width:${(u.km7/max)*100}%"></div></div><div>${fmt(u.km7)}</div></div>`).join("");
-document.getElementById("tbody").innerHTML=visible().map(u=>`<tr><td><b>${u.nopol}</b></td><td><span class="tag ${cls[u.st]}">${u.st}</span></td><td>${u.spd}</td><td>${fmt(u.km7)}</td><td>${fmt(u.odo)}</td><td>${u.svc==null?"—":fmt(u.svc)+" km"}</td><td>${fuelTag(u.fuel)}</td><td>${rel(u)}<div class="muted">${u.ageh>=8?"perlu cek GPS":""}</div></td><td>${u.loc}<div class="muted">${u.addr}</div></td></tr>`).join("");
-document.getElementById("livepill").textContent="LIVE · "+STAMP;
-document.getElementById("foot").textContent="Monitoring Armada Online · LIVE "+STAMP+" · update 07.00 & 19.00 WIB";}
-document.getElementById("q").addEventListener("input",e=>{q=e.target.value;render()});
-document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{filter=b.dataset.f;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));render()});
-document.querySelectorAll("th[data-s]").forEach(th=>th.onclick=()=>{const k=th.dataset.s;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1}render()});
-render();
+const aktif=u=>u.st==="JALAN"||u.st==="MESIN ON";
+function rel(u){if(u.ageh==null)return "—"; if(u.ageh<0.08)return "baru"; if(u.ageh<1)return Math.round(u.ageh*60)+" mnt"; if(u.ageh<24)return u.ageh.toFixed(1)+" jam"; return (u.ageh/24).toFixed(1)+" hari";}
+function list(arr,fn){return arr.length?arr.map(fn).join(""):'<div class="meta">Tidak ada</div>';}
+const C=UNITS.filter(crit).sort((a,b)=>a.fuel-b.fuel);
+const L=UNITS.filter(low).sort((a,b)=>a.fuel-b.fuel);
+const S=UNITS.filter(stale).sort((a,b)=>b.ageh-a.ageh);
+const A=UNITS.filter(aktif);
+document.getElementById("kpis").innerHTML=`<div class="kpi"><span>Unit</span><b>${UNITS.length}</b></div><div class="kpi"><span>CRITICAL</span><b style="color:var(--bad)">${C.length}</b></div><div class="kpi"><span>LOW</span><b style="color:var(--warn)">${L.length}</b></div><div class="kpi"><span>Jalan/ON</span><b style="color:var(--run)">${A.length}</b></div>`;
+document.getElementById("blocks").innerHTML=`<div class="note bad"><b>CRITICAL ≤3%</b>${list(C,u=>`<div class="row"><b>${u.nopol}</b><span class="tag t0">${u.fuel}%</span> · ${u.st} · ${u.loc}</div>`)}</div><div class="note warn"><b>LOW <40%</b>${list(L,u=>`<div class="row"><b>${u.nopol}</b><span class="tag tlow">${u.fuel}%</span> · ${u.st} · ${u.loc}</div>`)}</div><div class="note warn"><b>GPS stale >8 jam</b>${list(S,u=>`<div class="row"><b>${u.nopol}</b><span>${rel(u)} · ${u.loc}</span></div>`)}</div><div class="note run"><b>Aktif sekarang</b>${list(A,u=>`<div class="row"><b>${u.nopol}</b><span class="tag t-run">${u.st}</span> ${u.spd} km/j · ${u.loc}</div>`)}</div>`;
+let cmd = C.length ? ("Isi solar dulu: "+C.map(u=>u.nopol+" "+u.fuel+"%").join(", ")) : (L.length ? ("Pantau LOW: "+L.slice(0,3).map(u=>u.nopol).join(", ")) : "Tidak ada CRITICAL.");
+if(S.length) cmd += " | Cek GPS "+S[0].nopol;
+document.getElementById("cmd").innerHTML="<b>1 perintah ARMA</b><br>"+cmd;
+document.getElementById("pill").textContent="LIVE \u00b7 "+STAMP;
 </script></body></html>
